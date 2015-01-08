@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by sander on 1/8/15.
  */
@@ -10,8 +13,10 @@ public class Klant {
     String plaats;
     String emailAdres;
 
-    public Klant(int klantID, String achternaam, String tussenvoegsel, String voornaam, int leeftijd, char geslacht, String plaats, String emailAdres) {
-        this.klantID = klantID;
+    static List<Klant> klantenArray = new ArrayList<Klant>();
+
+    public Klant(String achternaam, String tussenvoegsel, String voornaam, int leeftijd, char geslacht, String plaats, String emailAdres) {
+        this.klantID = klantenArray.size();;
         this.achternaam = achternaam;
         this.tussenvoegsel = tussenvoegsel;
         this.voornaam = voornaam;
