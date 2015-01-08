@@ -1,29 +1,33 @@
 import java.security.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
+import java.sql.Time;
+import java.util.*;
 
 /**
- * Created by sander on 1/8/15.
+ * Created by rik on 11/30/14.
  */
 public class Bestelling {
-
-    int klantID, bestellingID;
+    int klantID;
+    int bestellingID;
     boolean verwerking;
-    Timestamp startTijd;
-    Timestamp duur;
+    Date startTijd;
+    Date duur;
     boolean compleet;
     boolean dadelijk;
 
-    static List<Bestelling> dadelijkBestellingArray = new ArrayList<Bestelling>();
-    static List<Bestelling> laterBestellingArray = new ArrayList<Bestelling>();
+    public static Queue queue = new LinkedList();
+    public static Queue klaar = new LinkedList();
 
-    public Bestelling(int bestellingID, boolean verwerking, Timestamp startTijd, Timestamp duur, boolean compleet, boolean dadelijk) {
+    public Bestelling(int klantID,  boolean verwerking, Date duur, Date startTijd, boolean compleet, boolean dadelijk) {
         this.klantID = klantID;
-        this.bestellingID = bestellingID;
         this.verwerking = verwerking;
-        this.startTijd = startTijd;
         this.duur = duur;
+        this.startTijd = startTijd;
         this.compleet = compleet;
         this.dadelijk = dadelijk;
+        this.bestellingID = queue.size();
+        queue.add(this);
     }
+
+
+
 }
