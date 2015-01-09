@@ -11,18 +11,16 @@ public class Main {
 
     public static void main(String[] args) {
         new Main().insertCustomer();
-
-        System.out.println(Bestelling.queue.size());
+        Klant.mergeSort(Klant.test);
+        for (int i = 0; i < Klant.test.length ; i++){
+            System.out.println(Klant.test[i]);
+        }
     }
 
     private void insertCustomer(){
         new Klant("van der werf","", "Rik",18, 'M',"Bruinisse","test@test.nl");
         new Klant("van der werf","", "Rik",18, 'M',"Bruinisse","test@test.nl");
-        new Klant("van der werf","", "Rik",18, 'M',"Bruinisse","test@test.nl");
-        System.out.println("Queue:");
-        System.out.println(Bestelling.queue);
-        System.out.println("Klaar:");
-        System.out.println(Bestelling.klaar);
+        new Klant("Witter","", "Davey",20, 'M',"Spijkenisse","test@test.nl");
         update();
     }
 
@@ -46,20 +44,18 @@ public class Main {
         if (now.compareTo(bestellingDate) > 0 && bestelling2 != null){
             bestelling.compleet=true;
             bestelling2.verwerking=true;
-            bestelling2.duur=new Time(60000);
+            bestelling2.duur=new Time(1000);
             //Aangezien de datum pas toegevoegd moet worden wanneer er aan de bestelling wordt gewerkt
             bestelling2.startTijd=new Date(now.getTime());
             Bestelling.klaar.add(bestelling);
             Bestelling.queue.poll();
-            System.out.println("Queue:"+Bestelling.queue);
-            System.out.println("Klaar:"+Bestelling.klaar);
+            System.out.println(bestelling.duur);
+            System.out.println(bestelling.startTijd);
         } else if(now.compareTo(bestellingDate) > 0 && bestelling2 == null){
             bestelling.compleet=true;
             //Aangezien de datum pas toegevoegd moet worden wanneer er aan de bestelling wordt gewerkt
             Bestelling.klaar.add(bestelling);
             Bestelling.queue.poll();
-            System.out.println("Queue:"+Bestelling.queue);
-            System.out.println("Klaar:"+Bestelling.klaar);
         }
     }
 }
