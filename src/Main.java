@@ -17,11 +17,14 @@ public class Main {
             System.out.println(k.achternaam);
         }
 
+        // Binary search
+        System.out.println("Zoek klant: de Vries");
+        System.out.println(Klant.binarySearch("Winter", 0, Klant.klanten.size()).voornaam);
     }
 
     private void insertCustomer() {
         new Klant("Winter", "de", "Sander", 18, 'M', "Sliedrecht", "0877902@hr.nl");
-        new Klant("Vries", "de", "Sander2", 8, 'M', "Sliedrecht", "0877902@hr.nl2");
+        new Klant("Winter", "de", "Piet", 8, 'M', "Sliedrecht", "0877902@hr.nl2");
         new Klant("Witter", "", "Davey", 20, 'M', "Spijkenisse", "test@test.nl");
     }
 

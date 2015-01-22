@@ -135,6 +135,22 @@ public class Klant {
         return null;
     }
 
+    public static Klant binarySearch(String achternaam, int min, int max) {
+        if (min > max) {
+            return null;
+        }
+
+        int mid = (max + min) / 2;
+
+        if (klanten.get(mid).achternaam.equals(achternaam)) {
+            return klanten.get(mid);
+        } else if(klanten.get(mid).achternaam.compareTo(achternaam) > 0) {
+            return binarySearch(achternaam, min, mid - 1);
+        } else {
+            return binarySearch(achternaam, mid + 1, max);
+        }
+    }
+
     public static void insertionSort(Klant[] inputArray) {
         int i,j;
         Klant key;
