@@ -19,7 +19,23 @@ public class Bestelling {
         this.dadelijk = false;
         this.bestellingID = wachtRij.size();
 
+        // Enque this Bestelling
+        System.out.println("Enqueue this Bestelling: " + this);
         wachtRij.enqueue(this);
+    }
+
+    public static void update() {
+        while (wachtRij.size() > 0) {
+            Bestelling bestelling = wachtRij.peek();
+            verwerk(bestelling);
+        }
+
+        finish();
+    }
+
+    public static void finish() {
+        System.out.println("Alle bestellingen zijn verwerkt");
+        System.out.println("Bestelling compleetWachtrij grootte: " + compleetWachtRij.size());
     }
 
     public static void verwerk(Bestelling bestelling) {
@@ -37,10 +53,11 @@ public class Bestelling {
         if (now.compareTo(eindDate) < 0) {
             bestelling.compleet = true;
             compleetWachtRij.enqueue(bestelling);
-            wachtRij.dequeue();
 
-            //System.out.println(bestelling.bestellingID);
-            //System.out.println(bestelling.duur);
+            // Deque one from wachtRij, always first so no argument. Deque also updates the List
+            System.out.println("Size before deque: " + wachtRij.size());
+            wachtRij.dequeue();
+            System.out.println("Size after deque: " + wachtRij.size());
         }
     }
 }

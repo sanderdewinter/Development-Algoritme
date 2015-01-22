@@ -1,9 +1,12 @@
 public class Main {
 
     public static void main(String[] args) {
+        // Make customers, they will automatisch make Bestellingen and added to WachtRij
         new Main().insertCustomer();
+        System.out.println("Totaal aantal bestellingen in de queue: " + Bestelling.wachtRij.size());
 
-        update();
+        // Bestellingen will be 'verwerkt' (updated)
+        Bestelling.update();
 
         Klant.klanten = Klant.startSort(Klant.klanten, true);
 
@@ -26,18 +29,5 @@ public class Main {
         new Klant("Winter", "de", "Sander", 18, 'M', "Sliedrecht", "0877902@hr.nl");
         new Klant("Winter", "de", "Piet", 8, 'M', "Sliedrecht", "0877902@hr.nl2");
         new Klant("Witter", "", "Davey", 20, 'M', "Spijkenisse", "test@test.nl");
-    }
-
-    public static void update() {
-        while (Bestelling.wachtRij.size() > 0) {
-            Bestelling bestelling = Bestelling.wachtRij.peek();
-            Bestelling.verwerk(bestelling);
-        }
-
-        finish();
-    }
-
-    public static void finish() {
-        System.out.println("Alle bestellingen zijn verwerkt");
     }
 }

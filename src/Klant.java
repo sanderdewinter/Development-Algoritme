@@ -27,7 +27,6 @@ public class Klant {
         bestel(this.klantID);
 
         // Doing insertion sort
-        //if (klanten.size() > 2)
         klanten = startSort(klanten, false);
     }
 
