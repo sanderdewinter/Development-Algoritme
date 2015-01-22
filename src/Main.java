@@ -5,16 +5,23 @@ public class Main {
 
         update();
 
-        // Test merge sorting
-        Klant.mergeSort(Klant.test);
-        for (int i = 0; i < Klant.test.length; i++) {
-            //System.out.println(Klant.test[i]);
+        Klant.klanten = Klant.startSort(Klant.klanten, true);
+
+        // Klant from linear search --> The first klant wich has this age
+        int leeftijd = 18;
+        System.out.println(Klant.linearSearch(leeftijd));
+
+        // Insertion sort
+        new Klant("Winzer", "", "Davey", 20, 'M', "Spijkenisse", "test@test.nl");
+        for (Klant k : Klant.klanten) {
+            System.out.println(k.achternaam);
         }
+
     }
 
     private void insertCustomer() {
         new Klant("Winter", "de", "Sander", 18, 'M', "Sliedrecht", "0877902@hr.nl");
-        new Klant("Winter2", "de", "Sander2", 18, 'M', "Sliedrecht", "0877902@hr.nl2");
+        new Klant("Vries", "de", "Sander2", 8, 'M', "Sliedrecht", "0877902@hr.nl2");
         new Klant("Witter", "", "Davey", 20, 'M', "Spijkenisse", "test@test.nl");
     }
 

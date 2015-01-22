@@ -39,8 +39,8 @@ public class Bestelling {
             compleetWachtRij.enqueue(bestelling);
             wachtRij.dequeue();
 
-            System.out.println(bestelling.bestellingID);
-            System.out.println(bestelling.duur);
+            //System.out.println(bestelling.bestellingID);
+            //System.out.println(bestelling.duur);
         }
     }
 }

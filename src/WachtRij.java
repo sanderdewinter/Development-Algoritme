@@ -1,10 +1,12 @@
 import java.util.ArrayList;
+import java.util.List;
+import java.util.NoSuchElementException;
 
 public class WachtRij {
 
     public int size;
 
-    public ArrayList<Bestelling> queue = new ArrayList<Bestelling>();
+    public List<Bestelling> queue = new ArrayList<Bestelling>();
 
     public WachtRij() {
         size = 0;
@@ -20,20 +22,15 @@ public class WachtRij {
     }
 
     public void dequeue() {
-        for (int i = 0; i < queue.size(); i++) {
-            if (queue.get(i).compleet) {
-                queue.remove(i);
-                size--;
-            }
-        }
+        queue.remove(0);
+        size--;
     }
 
     public Bestelling peek() {
-        for (int i = 0; i < queue.size(); i++) {
-            if (!queue.get(i).verwerking) {
-                return queue.get(i);
-            }
+        try {
+            return queue.get(0);
+        }catch (NoSuchElementException e){
+            return null;
         }
-        return null;
     }
 }
