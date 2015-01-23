@@ -30,6 +30,7 @@ public class Bestelling {
             verwerk(bestelling);
         }
 
+        // Show the results and compleetQueue
         finish();
     }
 
