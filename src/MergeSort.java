@@ -2,9 +2,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * Created by Davey on 23-01-15.
- */
 public class MergeSort {
     public static List<Klant> startSort(List<Klant> klanten, boolean mergeSort) {
         Klant[] array = klanten.toArray(new Klant[klanten.size()]);
