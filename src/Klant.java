@@ -1,115 +1,210 @@
-import java.sql.Time;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Arrays;
 import java.util.List;
 
-/**
- * Created by rik on 11/30/14.
- */
 public class Klant {
+
     int klantID;
-    String achternaam;
-    String tussenvoegsel;
-    String voornaam;
+    String achternaam, tussenvoegsel, voornaam;
     int leeftijd;
     char geslacht;
-    String plaats;
-    String email;
+    String plaats, emailAdres;
+    Klant leftChild;
+    Klant rightChild;
 
-    static List<Klant> klantenArray = new ArrayList<Klant>();
 
-    public Klant(String achternaam, String tussenvoegsel, String voornaam, int leeftijd, char geslacht, String plaats, String email) {
-        this.klantID = klantenArray.size();
+    static List<Klant> klanten = new ArrayList<Klant>();
+
+    public int getKlantId(){ return klantID; }
+
+    public static BinaryTree klantenTree = new BinaryTree();
+
+    public Klant(String achternaam, String tussenvoegsel, String voornaam, int leeftijd, char geslacht, String plaats, String emailAdres) {
+        this.klantID = klanten.size(); //klantenTree.maxId()+1;
         this.achternaam = achternaam;
         this.tussenvoegsel = tussenvoegsel;
         this.voornaam = voornaam;
         this.leeftijd = leeftijd;
         this.geslacht = geslacht;
         this.plaats = plaats;
-        this.email = email;
-        klantenArray.add(this);
+        this.emailAdres = emailAdres;
+
+        klanten.add(this);
+        //klantenTree.addNode(this.klantID, this);
+
         bestel(this.klantID);
+
+        // Doing insertion sort
+        //if (klanten.size() > 2)
+            klanten = startSort(klanten, false);
+    }
+
+    //Zet de klanten uit de array in de binary tree
+    public Klant(Klant klant){
+        this.klantID = klantenTree.maxId()+1;
+        this.achternaam = klant.achternaam;
+        this.tussenvoegsel = klant.tussenvoegsel;
+        this.voornaam = klant.voornaam;
+        this.leeftijd = klant.leeftijd;
+        this.geslacht = klant.geslacht;
+        this.plaats = klant.plaats;
+        this.emailAdres = klant.emailAdres;
+
+        klantenTree.addNode(this.klantID, this);
     }
 
     public void bestel(int klantID){
-        Date date = new Date();
-        new Bestelling(klantID,  true, new Time(1000), new Date(date.getTime()) , true, true);
+        new Bestelling(klantID);
     }
 
-    public static int[] test = new int[]{9,11,3,6,5,4,8,1};
+    public static List<Klant> startSort(List<Klant> klanten, boolean mergeSort) {
+        Klant[] array = klanten.toArray(new Klant[klanten.size()]);
+        if (mergeSort) {
+            mergeSort(array);
+        } else {
+            insertionSort(array);
+        }
+        return new ArrayList<Klant>(Arrays.asList(array));
+    }
 
-    public static void mergeSort(int[] inputArray) {
-        // The length of the array
-        int lengte = inputArray.length;
-        // If the array has a length of less than 2
-        if (lengte < 2)
+    public static void mergeSort(Klant[] klanten) {
+        // De lengte van de array
+        int lengte = klanten.length;
+
+        // Als de array kleiner is dan 2
+        if (lengte < 2) {
             return;
-        // The middle of the array
+        }
+
+        // Midden van de array
         int midden = lengte / 2;
-        // The size of the left part of the array
+
+        // Linker kant van de array
         int linksLengte = midden;
-        // The size of the right part of the array
+
+        // Rechter kant van de array
         int rechtsLengte = lengte - midden;
-        // Creating two new arrays for the left and the right part
-        int[] links = new int[linksLengte];
-        int[] rechts = new int[rechtsLengte];
-        // For all the items in the first array
+
+        // 2 Nieuwe arrays
+        Klant[] links = new Klant[linksLengte];
+        Klant[] rechts = new Klant[rechtsLengte];
+
+        // Linkse helft vullen
         for (int i = 0; i < midden; i++) {
-            // Copy from the original left part of the array
-            links[i] = inputArray[i];
-
+            links[i] = klanten[i];
         }
-        // For all the items in the second array
+
+        // Rechtse helft vullen
         for (int i = midden; i < lengte; i++) {
-            // Copy from the original right part of the array
-            rechts[i - midden] = inputArray[i];
+            rechts[i - midden] = klanten[i];
         }
 
-        // Execute the function again for the left and the right part of the array
+        // Opnieuwe uitvoeren met links en rechts
         mergeSort(links);
         mergeSort(rechts);
-        // merge the two arrays
-        merge(links, rechts, inputArray);
+
+        // Voeg de array samen
+        merge(links, rechts, klanten);
     }
 
-    public static void merge(int[] links, int[] rechts, int[] arr) {
-        // get the length of the two arrays
+    public static void merge(Klant[] links, Klant[] rechts, Klant[] arr) {
+        // Lengte van de 2 arrays
         int linkerLengte = links.length;
-        int rightSize = rechts.length;
-        // assign 0 to i, j and k
-        int i = 0, j = 0, k = 0;
-        // while i is less than the left size and j is less than the right size, execute this
-        while (i < linkerLengte && j < rightSize) {
-            // if the number on the position on the left is less than the number at the position of the right, execute this
-            if (links[i] <= rechts[j]) {
-                // put the value of the left part back in the array
-                arr[k] = links[i];
+        int rechterLengte = rechts.length;
+
+        int l = 0, r = 0, i = 0;
+
+        // Zolang i en j kleiner zijn dan de kant van de array
+        while (l < linkerLengte && r < rechterLengte) {
+
+            // Als de linkse kant kleiner is dan de rechter kant
+            if (links[l].leeftijd <= rechts[r].leeftijd) {
+                // Vul de waarde van de linker kant in
+                arr[i] = links[l];
+                l++;
                 i++;
-                k++;
-            // if the number on the position on the right is less than the number at the position of the right, execute this
+
+                // Als de rechtse kant kleiner is dan de linker kant
             } else {
-                // put the value of the right part back in the array
-                arr[k] = rechts[j];
-                k++;
-                j++;
+                // Vul de waarder van de rechter kant in
+                arr[i] = rechts[r];
+                i++;
+                r++;
             }
         }
-        // if one of the two arrays is empty, but the other not, execute the following:
-        // while the left size is not empty, execute this
-        while (i < linkerLengte) {
-            // put the value of the cursor back in the array
-            arr[k] = links[i];
-            k++;
+
+        // Als de array oneven is en linker kant is nog niet leeg
+        while (l < linkerLengte) {
+            arr[i] = links[l];
             i++;
+            l++;
         }
-        // while the right size is not empty, execute this
-        while (j < linkerLengte) {
-            // put the value of the cursor back in the array
-            arr[k] = rechts[j];
-            k++;
-            j++;
+
+        // Als de array oneven is en rechter kant is nog niet leeg
+        while (r < linkerLengte) {
+            arr[i] = rechts[r];
+            i++;
+            r++;
         }
     }
 
+    public static Klant linearSearch(int leeftijd) {
+        for (Klant klant : klanten) {
+            if (klant.leeftijd == leeftijd) {
+                return klant;
+            }
+        }
+        return null;
+    }
 
+    public static List<Klant> binarySearch(String achternaam, int min, int max) {
+        if (min > max) {
+            return null;
+        }
+
+        int mid = (max + min) / 2;
+
+        if (klanten.get(mid).achternaam.equals(achternaam)) {
+            List<Klant> results = new ArrayList<Klant>();
+
+            results.add(klanten.get(mid));
+
+            try {
+                for (int i = 1; klanten.get(mid - i).achternaam.equals(achternaam); i++) {
+                    results.add(klanten.get(mid - i));
+                }
+
+                for (int i = 1; klanten.get(mid + i).achternaam.equals(achternaam); i++) {
+                    results.add(klanten.get(mid + i));
+                }
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("Index out of bounds");
+            }
+
+            return results;
+
+        } else if(klanten.get(mid).achternaam.compareTo(achternaam) > 0) {
+            return binarySearch(achternaam, min, mid - 1);
+        } else {
+            return binarySearch(achternaam, mid + 1, max);
+        }
+    }
+
+    public static void insertionSort(Klant[] inputArray) {
+        int i,j;
+        Klant key;
+
+        for (j = 1; j < inputArray.length; j++) {
+            key = inputArray[j];
+            i = j - 1;
+            while (i >= 0) {
+                if (key.achternaam.compareTo(inputArray[i].achternaam) > 0) {
+                    break;
+                }
+                inputArray[i + 1] = inputArray[i];
+                i--;
+            }
+            inputArray[i + 1] = key;
+        }
+    }
 }

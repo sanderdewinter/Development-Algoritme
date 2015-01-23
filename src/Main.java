@@ -1,61 +1,48 @@
-import java.security.Timestamp;
-import java.sql.Time;
-import java.util.Date;
-import java.util.LinkedList;
-import java.util.ListIterator;
-
-/**
- * Created by rik on 12/14/14.
- */
 public class Main {
 
     public static void main(String[] args) {
+        System.out.println("Scenario 1");
+
+        // Make customers, they will automatisch make Bestellingen and added to WachtRij
         new Main().insertCustomer();
-        Klant.mergeSort(Klant.test);
-        for (int i = 0; i < Klant.test.length ; i++){
-            System.out.println(Klant.test[i]);
+        System.out.println("Totaal aantal bestellingen in de queue: " + Bestelling.wachtRij.size());
+
+        // Bestellingen will be 'verwerkt' (updated)
+        Bestelling.update();
+
+        System.out.println(" ");
+        System.out.println("Scenario 2");
+
+        Klant.klanten = Klant.startSort(Klant.klanten, true);
+
+        // Klant from linear search --> The first klant wich has this age
+        int leeftijd = 18;
+        System.out.println(Klant.linearSearch(leeftijd));
+
+        // Insertion sort
+        new Klant("Winzer", "", "Davey", 20, 'M', "Spijkenisse", "test@test.nl");
+        for (Klant k : Klant.klanten) {
+            System.out.println(k.achternaam);
         }
+
+        // Binary search
+        System.out.println("Zoek klant: de Winter");
+        System.out.println(Klant.binarySearch("Winter", 0, Klant.klanten.size()));
+
+        System.out.println(" ");
+        System.out.println("Scenario 3");
+        for (int i = 0 ; i < Klant.klanten.size(); i++){
+            new Klant(Klant.klanten.get(i));
+        }
+        Klant klant = Klant.klantenTree.findNode(3);
+        System.out.println(Klant.klantenTree.findNode(3).getKlantId());
     }
 
-    private void insertCustomer(){
-        new Klant("van der werf","", "Rik",18, 'M',"Bruinisse","test@test.nl");
-        new Klant("van der werf","", "Rik",18, 'M',"Bruinisse","test@test.nl");
-        new Klant("Witter","", "Davey",20, 'M',"Spijkenisse","test@test.nl");
-        update();
-    }
-
-    public static void update(){
-        while (Bestelling.queue.size() != 0){
-            Bestelling bestelling2;
-            Bestelling bestelling = (Bestelling) Bestelling.queue.element();
-            if(Bestelling.queue.size() > 1){
-                bestelling2 = (Bestelling)((LinkedList)Bestelling.queue).get(1);
-                verwerk(bestelling, bestelling2);
-            } else {
-                verwerk(bestelling, null);
-            }
-        }
-    }
-
-    private static void verwerk(Bestelling bestelling, Bestelling bestelling2){
-        Date now = new Date();
-        long bestellingTijd = bestelling.startTijd.getTime() + bestelling.duur.getTime();
-        Date bestellingDate = new Date (bestellingTijd);
-        if (now.compareTo(bestellingDate) > 0 && bestelling2 != null){
-            bestelling.compleet=true;
-            bestelling2.verwerking=true;
-            bestelling2.duur=new Time(1000);
-            //Aangezien de datum pas toegevoegd moet worden wanneer er aan de bestelling wordt gewerkt
-            bestelling2.startTijd=new Date(now.getTime());
-            Bestelling.klaar.add(bestelling);
-            Bestelling.queue.poll();
-            System.out.println(bestelling.duur);
-            System.out.println(bestelling.startTijd);
-        } else if(now.compareTo(bestellingDate) > 0 && bestelling2 == null){
-            bestelling.compleet=true;
-            //Aangezien de datum pas toegevoegd moet worden wanneer er aan de bestelling wordt gewerkt
-            Bestelling.klaar.add(bestelling);
-            Bestelling.queue.poll();
-        }
+    private void insertCustomer() {
+        new Klant("Akker", "de", "Sander", 318, 'M', "Sliedrecht", "0877902@hr.nl");
+        new Klant("Winter", "de", "Sander", 18, 'M', "Sliedrecht", "0877902@hr.nl");
+        new Klant("Costantini", "", "Giulia", 28, 'V', "Rotterdam", "COSTG@hr.nl");
+        new Klant("Winter", "de", "Piet", 8, 'M', "Sliedrecht", "0877902@hr.nl2");
+        new Klant("Witter", "", "Davey", 20, 'M', "Spijkenisse", "test@test.nl");
     }
 }
