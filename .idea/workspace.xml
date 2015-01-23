@@ -612,17 +612,21 @@
       <created>1420719105870</created>
       <updated>1420719105870</updated>
       <workItem from="1420719111307" duration="10289000" />
-      <workItem from="1421144890495" duration="15703000" />
+      <workItem from="1421144890495" duration="15729000" />
     </task>
     <task id="LOCAL-00001" summary="aangepaste versie">
       <created>1422009894072</created>
       <updated>1422009894072</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="aangepaste versie">
+      <created>1422009906818</created>
+      <updated>1422009906818</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="25992000" />
+    <option name="totallyTimeSpent" value="26018000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="708" extended-state="6" />
