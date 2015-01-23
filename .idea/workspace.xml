@@ -2,11 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d3cf0edf-8bc8-4dc3-9612-e6d6a5bfd846" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/BinaryTree.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/WachtRij.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Bestelling.java" afterPath="$PROJECT_DIR$/src/Bestelling.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Klant.java" afterPath="$PROJECT_DIR$/src/Klant.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Main.java" afterPath="$PROJECT_DIR$/src/Main.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Development-Algoritme.iws" />
@@ -617,12 +612,17 @@
       <created>1420719105870</created>
       <updated>1420719105870</updated>
       <workItem from="1420719111307" duration="10289000" />
-      <workItem from="1421144890495" duration="15678000" />
+      <workItem from="1421144890495" duration="15703000" />
     </task>
+    <task id="LOCAL-00001" summary="aangepaste versie">
+      <created>1422009894072</created>
+      <updated>1422009894072</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="25967000" />
+    <option name="totallyTimeSpent" value="25992000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="708" extended-state="6" />
@@ -671,7 +671,8 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
-    <option name="LAST_COMMIT_MESSAGE" value="" />
+    <MESSAGE value="aangepaste versie" />
+    <option name="LAST_COMMIT_MESSAGE" value="aangepaste versie" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
