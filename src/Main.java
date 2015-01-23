@@ -28,6 +28,42 @@ public class Main {
         // Binary search
         System.out.println("Zoek klant: de Winter");
         System.out.println(Klant.binarySearch("Winter", 0, Klant.klanten.size()));
+
+        System.out.println(" ");
+        System.out.println("Scenario 3");
+
+        // Binary tree
+        for (int i = 0 ; i < Klant.klanten.size(); i++){
+            // Add klanten to Tree
+            new Klant(Klant.klanten.get(i));
+        }
+
+        Klant klant = Klant.klantenTree.findNode(3);
+        System.out.println(Klant.klantenTree.findNode(3).achternaam);
+
+
+        // Deleteing klant from tree with ID 3
+        System.out.println(" ");
+
+        // Tree before sorted on Klant ID
+        System.out.println(Klant.klantenTree.getRoot().getKlantId());
+        System.out.println(Klant.klantenTree.getRoot().rightChild.getKlantId());
+        System.out.println(Klant.klantenTree.getRoot().rightChild.rightChild.getKlantId());
+        System.out.println(Klant.klantenTree.getRoot().rightChild.rightChild.rightChild.getKlantId());
+        System.out.println(Klant.klantenTree.getRoot().rightChild.rightChild.rightChild.rightChild.getKlantId());
+
+        // Deleting node here
+        Klant.klantenTree.removeKlant(Klant.klantenTree.findNode(3));
+
+        System.out.println("Result after deleting one node");
+        System.out.println(Klant.klantenTree.getRoot().getKlantId());
+        System.out.println(Klant.klantenTree.getRoot().rightChild.getKlantId());
+        System.out.println(Klant.klantenTree.getRoot().rightChild.rightChild.getKlantId());
+        System.out.println(Klant.klantenTree.getRoot().rightChild.rightChild.rightChild.getKlantId());
+
+        // Use the comparator
+        System.out.println(Klant.klantenTree.compare(4, Klant.klantenTree.findNode(1)));
+        System.out.println(Klant.klantenTree.compare(3, Klant.klantenTree.findNode(5)));
     }
 
     private void insertCustomer() {
