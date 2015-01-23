@@ -3,6 +3,7 @@ import java.util.List;
 
 public class BinarySearch {
     public static List<Klant> binarySearch(String achternaam, int min, int max) {
+    //public static Klant binarySearch(String achternaam, int min, int max) {
         if (min > max) {
             return null;
         }

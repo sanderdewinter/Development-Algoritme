@@ -1,35 +1,18 @@
 public class Main {
 
     public static void main(String[] args) {
-        System.out.println("Scenario 1");
-
-        // Make customers, they will automatisch make Bestellingen and added to WachtRij
-        new Main().insertCustomer();
-        System.out.println("Totaal aantal bestellingen in de queue: " + Bestelling.wachtRij.size());
-
-        // Bestellingen will be 'verwerkt' (updated)
-        Bestelling.update();
+        scenario1();
 
         System.out.println(" ");
-        System.out.println("Scenario 2");
 
-        Klant.klanten = MergeSort.startSort(Klant.klanten);
-
-        // Klant from linear search --> The first klant wich has this age
-        int leeftijd = 18;
-        System.out.println(LinearSearch.linearSearch(leeftijd));
-
-        // Insertion sort
-        new Klant("Winzer", "", "Davey", 20, 'M', "Spijkenisse", "test@test.nl");
-        for (Klant k : Klant.klanten) {
-            System.out.println(k.achternaam);
-        }
-
-        // Binary search
-        System.out.println("Zoek klant: de Winter");
-        System.out.println(BinarySearch.binarySearch("Winter", 0, Klant.klanten.size()));
+        scenario2();
 
         System.out.println(" ");
+
+        scenario3();
+    }
+
+    private static void scenario3() {
         System.out.println("Scenario 3");
 
         // Binary tree
@@ -64,6 +47,37 @@ public class Main {
         // Use the comparator
         System.out.println(Klant.klantenTree.compare(4, Klant.klantenTree.findNode(1)));
         System.out.println(Klant.klantenTree.compare(3, Klant.klantenTree.findNode(5)));
+    }
+
+    private static void scenario2() {
+        System.out.println("Scenario 2");
+
+        Klant.klanten = MergeSort.startSort(Klant.klanten);
+
+        // Klant from linear search --> The first klant wich has this age
+        int leeftijd = 18;
+        System.out.println(LinearSearch.linearSearch(leeftijd));
+
+        // Insertion sort
+        new Klant("Winzer", "", "Davey", 20, 'M', "Spijkenisse", "test@test.nl");
+        for (Klant k : Klant.klanten) {
+            System.out.println(k.achternaam);
+        }
+
+        // Binary search
+        System.out.println("Zoek klant: de Winter");
+        System.out.println(BinarySearch.binarySearch("Winter", 0, Klant.klanten.size()));
+    }
+
+    private static void scenario1() {
+        System.out.println("Scenario 1");
+
+        // Make customers, they will automatisch make Bestellingen and added to WachtRij
+        new Main().insertCustomer();
+        System.out.println("Totaal aantal bestellingen in de queue: " + Bestelling.wachtRij.size());
+
+        // Bestellingen will be 'verwerkt' (updated)
+        Bestelling.update();
     }
 
     private void insertCustomer() {
