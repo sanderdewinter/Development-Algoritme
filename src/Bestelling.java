@@ -26,16 +26,11 @@ public class Bestelling {
 
     public static void update() {
         while (wachtRij.size() > 0) {
-            Bestelling bestelling = wachtRij.peek();
+            Bestelling bestelling = (Bestelling) wachtRij.peek();
             verwerk(bestelling);
         }
 
         finish();
-    }
-
-    public static void finish() {
-        System.out.println("Alle bestellingen zijn verwerkt");
-        System.out.println("Bestelling compleetWachtrij grootte: " + compleetWachtRij.size());
     }
 
     public static void verwerk(Bestelling bestelling) {
@@ -59,5 +54,10 @@ public class Bestelling {
             wachtRij.dequeue();
             System.out.println("Size after deque: " + wachtRij.size());
         }
+    }
+
+    public static void finish() {
+        System.out.println("Alle bestellingen zijn verwerkt");
+        System.out.println("Bestelling compleetWachtrij grootte: " + compleetWachtRij.size());
     }
 }

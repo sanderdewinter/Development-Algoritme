@@ -3,11 +3,11 @@ import java.util.NoSuchElementException;
 
 public class WachtRij {
 
-    private int size;
-
-    public LinkedList<Bestelling> queue = new LinkedList<Bestelling>();
+    int size;
+    LinkedList<Object> queue;
 
     public WachtRij() {
+        queue = new LinkedList<Object>();
         size = 0;
     }
 
@@ -15,17 +15,17 @@ public class WachtRij {
         return size;
     }
 
-    public void enqueue(Bestelling bestelling) {
-        queue.add(queue.size(), bestelling);
+    public void enqueue(Object obj) {
+        queue.add(obj);
         size++;
     }
 
     public void dequeue() {
-        queue.remove(queue.getFirst());
+        queue.remove();
         size--;
     }
 
-    public Bestelling peek() {
+    public Object peek() {
         try {
             return queue.getFirst();
         }catch (NoSuchElementException e){
