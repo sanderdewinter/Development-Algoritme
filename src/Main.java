@@ -13,11 +13,11 @@ public class Main {
         System.out.println(" ");
         System.out.println("Scenario 2");
 
-        Klant.klanten = Klant.startSort(Klant.klanten, true);
+        Klant.klanten = MergeSort.startSort(Klant.klanten);
 
         // Klant from linear search --> The first klant wich has this age
         int leeftijd = 18;
-        System.out.println(Klant.linearSearch(leeftijd));
+        System.out.println(LinearSearch.linearSearch(leeftijd));
 
         // Insertion sort
         new Klant("Winzer", "", "Davey", 20, 'M', "Spijkenisse", "test@test.nl");
@@ -27,7 +27,7 @@ public class Main {
 
         // Binary search
         System.out.println("Zoek klant: de Winter");
-        System.out.println(Klant.binarySearch("Winter", 0, Klant.klanten.size()));
+        System.out.println(BinarySearch.binarySearch("Winter", 0, Klant.klanten.size()));
 
         System.out.println(" ");
         System.out.println("Scenario 3");
