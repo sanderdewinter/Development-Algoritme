@@ -134,7 +134,7 @@ public class Klant {
         return null;
     }
 
-    public static Klant binarySearch(String achternaam, int min, int max) {
+    public static List<Klant> binarySearch(String achternaam, int min, int max) {
         if (min > max) {
             return null;
         }
@@ -142,7 +142,24 @@ public class Klant {
         int mid = (max + min) / 2;
 
         if (klanten.get(mid).achternaam.equals(achternaam)) {
-            return klanten.get(mid);
+            List<Klant> results = new ArrayList<Klant>();
+
+            results.add(klanten.get(mid));
+
+            try {
+                for (int i = 1; klanten.get(mid - i).achternaam.equals(achternaam); i++) {
+                    results.add(klanten.get(mid - i));
+                }
+
+                for (int i = 1; klanten.get(mid + i).achternaam.equals(achternaam); i++) {
+                    results.add(klanten.get(mid + i));
+                }
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.out.println("Index out of bounds");
+            }
+
+            return results;
+
         } else if(klanten.get(mid).achternaam.compareTo(achternaam) > 0) {
             return binarySearch(achternaam, min, mid - 1);
         } else {
