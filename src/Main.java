@@ -13,11 +13,11 @@ public class Main {
         System.out.println(" ");
         System.out.println("Scenario 2");
 
-        Klant.klanten = Klant.startSort(Klant.klanten, true);
+        Klant.klanten = MergeSort.startSort(Klant.klanten, true);
 
         // Klant from linear search --> The first klant wich has this age
         int leeftijd = 18;
-        System.out.println(Klant.linearSearch(leeftijd));
+        System.out.println(LinearSearch.linearSearch(leeftijd));
 
         // Insertion sort
         new Klant("Winzer", "", "Davey", 20, 'M', "Spijkenisse", "test@test.nl");
@@ -27,15 +27,34 @@ public class Main {
 
         // Binary search
         System.out.println("Zoek klant: de Winter");
-        System.out.println(Klant.binarySearch("Winter", 0, Klant.klanten.size()));
+        System.out.println(BinarySearch.binarySearch("Winter", 0, Klant.klanten.size()));
 
         System.out.println(" ");
         System.out.println("Scenario 3");
         for (int i = 0 ; i < Klant.klanten.size(); i++){
             new Klant(Klant.klanten.get(i));
         }
-        Klant klant = Klant.klantenTree.findNode(3);
-        System.out.println(Klant.klantenTree.findNode(3).getKlantId());
+        System.out.println(Klant.klantenTree().findNode(2).achternaam);
+        System.out.println("The tree before deletion");
+        System.out.println(Klant.klantenTree().getRoot().getKlantId());
+        System.out.println(Klant.klantenTree().getRoot().rightChild.getKlantId());
+        System.out.println(Klant.klantenTree().getRoot().rightChild.rightChild.getKlantId());
+        System.out.println(Klant.klantenTree().getRoot().rightChild.rightChild.rightChild.getKlantId());
+        System.out.println(Klant.klantenTree().getRoot().rightChild.rightChild.rightChild.rightChild.getKlantId());
+        Klant.klantenTree().removeNode(Klant.klantenTree().findNode(2));
+        System.out.println("The tree after deletion");
+        System.out.println(Klant.klantenTree().getRoot().getKlantId());
+        System.out.println(Klant.klantenTree().getRoot().rightChild.getKlantId());
+        System.out.println(Klant.klantenTree().getRoot().rightChild.rightChild.getKlantId());
+        System.out.println(Klant.klantenTree().getRoot().rightChild.rightChild.rightChild.getKlantId());
+
+        System.out.println(" ");
+        System.out.println("Compare if the key 3 is more than 5, should give back -1 ");
+        System.out.println(Klant.klantenTree().compare(Klant.klantenTree().findNode(3), Klant.klantenTree().findNode(5)));
+        System.out.println("Compare if the key 5 is more than 3, schould give back 1 ");
+        System.out.println(Klant.klantenTree().compare(Klant.klantenTree().findNode(5), Klant.klantenTree().findNode(3)));
+
+
     }
 
     private void insertCustomer() {

@@ -26,7 +26,7 @@ public class Bestelling {
 
     public static void update() {
         while (wachtRij.size() > 0) {
-            Bestelling bestelling = wachtRij.peek();
+            Bestelling bestelling = (Bestelling) wachtRij.peek();
             verwerk(bestelling);
         }
 

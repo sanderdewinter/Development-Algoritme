@@ -1,14 +1,14 @@
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedList;
 import java.util.NoSuchElementException;
 
 public class WachtRij {
 
     public int size;
+    LinkedList<Object> queue;
 
-    public List<Bestelling> queue = new ArrayList<Bestelling>();
 
     public WachtRij() {
+        queue = new LinkedList<Object>();
         size = 0;
     }
 
@@ -16,19 +16,19 @@ public class WachtRij {
         return size;
     }
 
-    public void enqueue(Bestelling bestelling) {
-        queue.add(bestelling);
+    public void enqueue(Object object) {
+        queue.add(object);
         size++;
     }
 
     public void dequeue() {
-        queue.remove(0);
+        queue.remove();
         size--;
     }
 
-    public Bestelling peek() {
+    public Object peek() {
         try {
-            return queue.get(0);
+            return queue.getFirst();
         }catch (NoSuchElementException e){
             return null;
         }

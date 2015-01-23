@@ -1,5 +1,4 @@
 public class BinaryTree {
-
     Klant root;
 
     public void addNode(int key, Klant klant) {
@@ -27,16 +26,9 @@ public class BinaryTree {
         }
     }
 
-    public void removeKlant(Klant klant) {
-
-        if (klant == root) {
-
-        }
-
+    public void removeNode(Klant klant) {
         Klant foundKlant = findNode(klant.getKlantId());
         Klant parent = findParent(klant);
-
-        Klant replaceKlant;
         if (foundKlant == null) {
             System.out.println("Klant not found");
         } else {
@@ -51,49 +43,34 @@ public class BinaryTree {
                 while (temp.leftChild != null) {
                     temp = temp.leftChild;
                 }
-
-                removeKlant(temp);
+                removeNode(temp);
                 temp.rightChild = klant.rightChild;
                 temp.leftChild = klant.leftChild;
                 klant.rightChild = null;
                 klant.leftChild = null;
                 parent.rightChild = temp;
-
-
             } else {
                 Klant temp = foundKlant.leftChild;
                 while (temp.rightChild != null) {
                     temp = temp.rightChild;
                 }
-
                 temp.rightChild = klant.rightChild;
                 temp.leftChild = klant.leftChild;
                 klant.rightChild = null;
                 klant.leftChild = null;
                 parent.leftChild = temp;
                 parent.rightChild = temp;
-                removeKlant(temp);
+                removeNode(temp);
             }
         }
-
-
-
-
-
     }
-
-
 
     public Klant findParent(Klant child) {
         Klant currentKlant = root;
-
         if (child == null) {
-            System.out.println("child is null muthafucka");
+            System.out.println("Child is null, can't run the function");
         } else {
-            //System.out.println(child);
         }
-
-
         while (true) {
             try {
                 if (currentKlant.rightChild.getKlantId() == child.getKlantId()) {
@@ -120,36 +97,25 @@ public class BinaryTree {
         return currentKlant;
     }
 
-    private boolean compare(int key, Klant currentKlant) {
-        if (key < currentKlant.getKlantId()) {
-            return true;
+    public int compare(Object firstObject, Object secondObject) {
+        int  first = ((Klant) firstObject).getKlantId();
+        int  second = ((Klant) secondObject).getKlantId();
+
+        if (first > second) {
+            return 1;
+        } else if (first < second) {
+            return -1;
         } else {
-            return false;
+            return 0;
         }
     }
 
-    // All nodes are visited in ascending order
-    // Recursion is used to go to one node and
-    // then go to its child nodes and so forth
-
     public void inOrderTraverseTree(Klant currentKlant) {
-
         if (currentKlant != null) {
-
-            // Traverse the left node
-
             inOrderTraverseTree(currentKlant.leftChild);
-
-            // Visit the currently focused on node
-
             System.out.println(currentKlant);
-
-            // Traverse the right node
-
             inOrderTraverseTree(currentKlant.rightChild);
-
         }
-
     }
 
     public void preorderTraverseTree(Klant focusNode) {
@@ -168,17 +134,27 @@ public class BinaryTree {
         }
     }
 
+    //key = klantenId
     public Klant findNode(int key) {
+        //focusNode = hoogste waarde, bovenaan de tree
         Klant focusNode = root;
+        // Zolang de id in focusnode niet gelijk is aan de te zoeken id:
         while (focusNode.getKlantId() != key) {
+            // Als de waarde die je zoekt kleiner is als de id van de focusNode
             if (key < focusNode.getKlantId()) {
+                // zet in focusNode de node die links onder staat
                 focusNode = focusNode.leftChild;
+            // Als de waarde die je zoekt groter is als de id van de focusNode
             } else {
+                // zet in focusNode de node die rechts onder staat
                 focusNode = focusNode.rightChild;
             }
+            // als de waarde van de focusNode niet bestaat
             if (focusNode == null)
+                // Geef een null waarde terug
                 return null;
         }
+        // Geef de focusNode terug
         return focusNode;
     }
 
