@@ -33,7 +33,9 @@ public class Klant {
         bestel(this.klantID);
 
         // Doing insertion sort
-        klanten = InsertionSort.startSort(klanten);
+        //klanten = InsertionSort.startSort(klanten, false);
+        // Improved version
+        klanten = InsertionSort.startSort(klanten, true);
     }
 
     public Klant(Klant klant) {
