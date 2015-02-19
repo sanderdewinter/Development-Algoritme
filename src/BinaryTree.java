@@ -73,7 +73,7 @@ public class BinaryTree{
     }
 
 
-    public void removeNode(Klant klant) {
+    public void removeKlant(Klant klant) {
         Klant gevondenKlant = search(klant.getKlantId());
         Klant VorigeNode = findParent(klant);
         if (gevondenKlant == null) {
@@ -90,7 +90,7 @@ public class BinaryTree{
                 while (Tijdelijk.leftChild != null) {
                     Tijdelijk = Tijdelijk.leftChild;
                 }
-                removeNode(Tijdelijk);
+                removeKlant(Tijdelijk);
                 Tijdelijk.rightChild = klant.rightChild;
                 Tijdelijk.leftChild = klant.leftChild;
                 klant.rightChild = null;
@@ -107,7 +107,7 @@ public class BinaryTree{
                 klant.leftChild = null;
                 VorigeNode.leftChild = Tijdelijk;
                 VorigeNode.rightChild = Tijdelijk;
-                removeNode(Tijdelijk);
+                removeKlant(Tijdelijk);
             }
         }
     }
@@ -144,8 +144,16 @@ public class BinaryTree{
         return dezeNode;
     }
 
-
-
+    public void Traversal(Klant klant){
+        if(klant.leftChild != null){
+            Traversal(klant.leftChild);
+        } else{
+            System.out.println(klant.getKlantId());
+            if(klant.rightChild != null){
+                Traversal(klant.rightChild);
+            }
+        }
+    }
 
     public Klant getRoot() {
         return eerste;

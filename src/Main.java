@@ -1,6 +1,3 @@
-import java.util.ArrayList;
-import java.util.List;
-
 public class Main {
 
     public static void main(String[] args) {
@@ -77,16 +74,17 @@ public class Main {
         System.out.println(Klant.klantenTree().getRoot().rightChild.getKlantId());
         System.out.println(Klant.klantenTree().getRoot().rightChild.rightChild.getKlantId());
         System.out.println(Klant.klantenTree().getRoot().rightChild.rightChild.rightChild.getKlantId());
-        Klant.klantenTree().removeNode(Klant.klantenTree().search(2));
+        System.out.println(Klant.klantenTree().getRoot().rightChild.rightChild.rightChild.rightChild.getKlantId());
+        Klant.klantenTree().removeKlant(Klant.klantenTree().search(2));
         System.out.println("The tree after deletion");
         System.out.println(Klant.klantenTree().getRoot().getKlantId());
         System.out.println(Klant.klantenTree().getRoot().rightChild.getKlantId());
         System.out.println(Klant.klantenTree().getRoot().rightChild.rightChild.getKlantId());
+        System.out.println(Klant.klantenTree().getRoot().rightChild.rightChild.rightChild.getKlantId());
         System.out.println(" ");
 
         System.out.println("Traversal: ");
-        //System.out.println(Klant.klantenTree().compare(Klant.klantenTree().findNode(3), Klant.klantenTree().findNode(4)));
-        //System.out.println(Klant.klantenTree().compare(Klant.klantenTree().findNode(4), Klant.klantenTree().findNode(3)));
+        Klant.klantenTree().Traversal(Klant.klantenTree().search(1));
     }
 
     private void insertCustomer() {
