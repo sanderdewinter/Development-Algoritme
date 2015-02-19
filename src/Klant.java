@@ -12,7 +12,6 @@ public class Klant {
     Klant leftChild;
     Klant rightChild;
 
-
     static List<Klant> klanten = new ArrayList<Klant>();
 
     public int getKlantId(){ return klantID; }
@@ -23,7 +22,7 @@ public class Klant {
         return getKlantenTree;
     }
 
-    public Klant(String achternaam, String tussenvoegsel, String voornaam, int leeftijd, char geslacht, String plaats, String emailAdres) {
+    public Klant(String achternaam, String tussenvoegsel, String voornaam, int leeftijd, char geslacht, String plaats, String emailAdres, boolean bestelling) {
         this.klantID = klanten.size(); //klantenTree.maxId()+1;
         this.achternaam = achternaam;
         this.tussenvoegsel = tussenvoegsel;
@@ -32,18 +31,13 @@ public class Klant {
         this.geslacht = geslacht;
         this.plaats = plaats;
         this.emailAdres = emailAdres;
-
         klanten.add(this);
-        //klantenTree.addNode(this.klantID, this);
-
-        bestel(this.klantID);
-
-        // Doing insertion sort
-        //if (klanten.size() > 2)
-            klanten = MergeSort.startSort(klanten, false);
+        if(bestelling){
+            bestel(this.klantID);
+        }
+        klanten = MergeSort.startSort(klanten, false);
     }
 
-    //Zet de klanten uit de array in de binary tree
     public Klant(Klant klant){
         this.klantID = klantenTree().maxId()+1;
         this.achternaam = klant.achternaam;
@@ -53,8 +47,7 @@ public class Klant {
         this.geslacht = klant.geslacht;
         this.plaats = klant.plaats;
         this.emailAdres = klant.emailAdres;
-
-        klantenTree().addNode(this.klantID, this);
+        klantenTree().addKlant(this.klantID, this);
     }
 
     public void bestel(int klantID){

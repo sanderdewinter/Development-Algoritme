@@ -1,178 +1,166 @@
-public class BinaryTree {
-    Klant root;
+public class BinaryTree{
+    Klant eerste;
 
-    public void addNode(int key, Klant klant) {
-        if (root == null) {
-            root = klant;
+    public void addKlant(int KlantId, Klant klant){
+        if(eerste == null){
+            eerste = klant;
         } else {
-            Klant focusNode = root;
-            Klant parent;
-            while (true) {
-                parent = focusNode;
-                if (key < focusNode.getKlantId()) {
-                    focusNode = focusNode.leftChild;
-                    if (focusNode == null) {
-                        parent.leftChild = klant;
-                        return;
-                    }
-                } else {
-                    focusNode = focusNode.rightChild;
-                    if (focusNode == null) {
-                        parent.rightChild = klant;
-                        return;
-                    }
-                }
+            Klant LaatsteNode = findLast(KlantId, eerste);
+            if(KlantId < LaatsteNode.getKlantId()){
+                LaatsteNode.leftChild = klant;
+            } else {
+                LaatsteNode.rightChild = klant;
             }
         }
     }
 
+    public Klant findLast(int KlantId, Klant klant){
+        if(KlantId == klant.getKlantId()){
+            return klant;
+        }else{
+            if(KlantId < klant.getKlantId()){
+                if(klant.leftChild != null){
+                    klant = findLast(KlantId, klant.leftChild);
+                } else {
+                    return klant;
+                }
+            }
+            if(KlantId > klant.getKlantId()){
+                if(klant.rightChild != null){
+                    klant = findLast(KlantId, klant.rightChild);
+                } else {
+                    return klant;
+                }
+            }
+        }
+        return klant;
+    }
+
+
+    public Klant search(int klantID) {
+        Klant selectedKlant = eerste;
+        Klant result;
+
+        if (selectedKlant.getKlantId() == klantID) {
+            return selectedKlant;
+        } else if (klantID < selectedKlant.getKlantId()) {
+            result = search(klantID, selectedKlant.leftChild);
+        } else {
+            result = search(klantID, selectedKlant.rightChild);
+        }
+
+        return result;
+    }
+
+    public Klant search(int klantID, Klant selectedKlant) {
+        if (selectedKlant.getKlantId() == klantID) {
+            return selectedKlant;
+        } else if (klantID < selectedKlant.getKlantId()) {
+            if(selectedKlant.leftChild != null){
+                selectedKlant = search(klantID, selectedKlant.leftChild);
+            } else {
+                return null;
+            }
+        } else {
+            if(selectedKlant.rightChild != null){
+                selectedKlant = search(klantID, selectedKlant.rightChild);
+            }else{
+                return null;
+            }
+        }
+
+        return selectedKlant;
+    }
+
+
     public void removeNode(Klant klant) {
-        Klant foundKlant = findNode(klant.getKlantId());
-        Klant parent = findParent(klant);
-        if (foundKlant == null) {
+        Klant gevondenKlant = search(klant.getKlantId());
+        Klant VorigeNode = findParent(klant);
+        if (gevondenKlant == null) {
             System.out.println("Klant not found");
         } else {
-            if (foundKlant.rightChild == null && foundKlant.leftChild == null) {
-                if (foundKlant.getKlantId() < parent.getKlantId()) {
-                    parent.leftChild = null;
+            if (gevondenKlant.rightChild == null && gevondenKlant.leftChild == null) {
+                if (gevondenKlant.getKlantId() < VorigeNode.getKlantId()) {
+                    VorigeNode.leftChild = null;
                 } else {
-                    parent.rightChild = null;
+                    VorigeNode.rightChild = null;
                 }
-            } else if (foundKlant.rightChild != null) {
-                Klant temp = foundKlant.rightChild;
-                while (temp.leftChild != null) {
-                    temp = temp.leftChild;
+            } else if (gevondenKlant.rightChild != null) {
+                Klant Tijdelijk = gevondenKlant.rightChild;
+                while (Tijdelijk.leftChild != null) {
+                    Tijdelijk = Tijdelijk.leftChild;
                 }
-                removeNode(temp);
-                temp.rightChild = klant.rightChild;
-                temp.leftChild = klant.leftChild;
+                removeNode(Tijdelijk);
+                Tijdelijk.rightChild = klant.rightChild;
+                Tijdelijk.leftChild = klant.leftChild;
                 klant.rightChild = null;
                 klant.leftChild = null;
-                parent.rightChild = temp;
+                VorigeNode.rightChild = Tijdelijk;
             } else {
-                Klant temp = foundKlant.leftChild;
-                while (temp.rightChild != null) {
-                    temp = temp.rightChild;
+                Klant Tijdelijk = gevondenKlant.leftChild;
+                while (Tijdelijk.rightChild != null) {
+                    Tijdelijk = Tijdelijk.rightChild;
                 }
-                temp.rightChild = klant.rightChild;
-                temp.leftChild = klant.leftChild;
+                Tijdelijk.rightChild = klant.rightChild;
+                Tijdelijk.leftChild = klant.leftChild;
                 klant.rightChild = null;
                 klant.leftChild = null;
-                parent.leftChild = temp;
-                parent.rightChild = temp;
-                removeNode(temp);
+                VorigeNode.leftChild = Tijdelijk;
+                VorigeNode.rightChild = Tijdelijk;
+                removeNode(Tijdelijk);
             }
         }
     }
 
     public Klant findParent(Klant child) {
-        Klant currentKlant = root;
+        Klant dezeNode = eerste;
         if (child == null) {
             System.out.println("Child is null, can't run the function");
         } else {
         }
         while (true) {
             try {
-                if (currentKlant.rightChild.getKlantId() == child.getKlantId()) {
+                if (dezeNode.rightChild.getKlantId() == child.getKlantId()) {
                     break;
-                } else if (currentKlant.leftChild.getKlantId() == child.getKlantId()) {
+                } else if (dezeNode.leftChild.getKlantId() == child.getKlantId()) {
                     break;
                 } else {
-                    if (child.getKlantId() < currentKlant.getKlantId()) {
-                        currentKlant = currentKlant.leftChild;
+                    if (child.getKlantId() < dezeNode.getKlantId()) {
+                        dezeNode = dezeNode.leftChild;
                     } else {
-                        currentKlant = currentKlant.rightChild;
+                        dezeNode = dezeNode.rightChild;
                     }
-                    if (currentKlant == null)
-                        return root;
+                    if (dezeNode == null)
+                        return eerste;
                 }
             } catch (NullPointerException e) {
-                if (child.getKlantId() < currentKlant.getKlantId()) {
-                    currentKlant = currentKlant.leftChild;
+                if (child.getKlantId() < dezeNode.getKlantId()) {
+                    dezeNode = dezeNode.leftChild;
                 } else {
-                    currentKlant = currentKlant.rightChild;
+                    dezeNode = dezeNode.rightChild;
                 }
             }
         }
-        return currentKlant;
+        return dezeNode;
     }
 
-    public int compare(Object firstObject, Object secondObject) {
-        int  first = ((Klant) firstObject).getKlantId();
-        int  second = ((Klant) secondObject).getKlantId();
 
-        if (first > second) {
-            return 1;
-        } else if (first < second) {
-            return -1;
-        } else {
-            return 0;
-        }
-    }
 
-    public void inOrderTraverseTree(Klant currentKlant) {
-        if (currentKlant != null) {
-            inOrderTraverseTree(currentKlant.leftChild);
-            System.out.println(currentKlant);
-            inOrderTraverseTree(currentKlant.rightChild);
-        }
-    }
-
-    public void preorderTraverseTree(Klant focusNode) {
-        if (focusNode != null) {
-            System.out.println(focusNode);
-            preorderTraverseTree(focusNode.leftChild);
-            preorderTraverseTree(focusNode.rightChild);
-        }
-    }
-
-    public void postOrderTraverseTree(Klant focusNode) {
-        if (focusNode != null) {
-            postOrderTraverseTree(focusNode.leftChild);
-            postOrderTraverseTree(focusNode.rightChild);
-            System.out.println(focusNode);
-        }
-    }
-
-    //key = klantenId
-    public Klant findNode(int key) {
-        //focusNode = hoogste waarde, bovenaan de tree
-        Klant focusNode = root;
-        // Zolang de id in focusnode niet gelijk is aan de te zoeken id:
-        while (focusNode.getKlantId() != key) {
-            // Als de waarde die je zoekt kleiner is als de id van de focusNode
-            if (key < focusNode.getKlantId()) {
-                // zet in focusNode de node die links onder staat
-                focusNode = focusNode.leftChild;
-            // Als de waarde die je zoekt groter is als de id van de focusNode
-            } else {
-                // zet in focusNode de node die rechts onder staat
-                focusNode = focusNode.rightChild;
-            }
-            // als de waarde van de focusNode niet bestaat
-            if (focusNode == null)
-                // Geef een null waarde terug
-                return null;
-        }
-        // Geef de focusNode terug
-        return focusNode;
-    }
 
     public Klant getRoot() {
-        return root.rightChild;
+        return eerste;
     }
 
     public int maxId(){
-        Klant focusNode = root;
-        if(focusNode == null){
+        Klant dezeNode = eerste;
+        if(dezeNode == null){
             return -1;
         }
         else{
-            while(focusNode.rightChild != null){
-                focusNode = focusNode.rightChild;
+            while(dezeNode.rightChild != null){
+                dezeNode = dezeNode.rightChild;
             }
         }
-        return focusNode.getKlantId();
+        return dezeNode.getKlantId();
     }
 }
-

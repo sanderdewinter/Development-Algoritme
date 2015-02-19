@@ -8,7 +8,6 @@ public class Bestelling {
     Date startTijd;
     Time duur;
     boolean compleet, dadelijk;
-
     public static WachtRij wachtRij = new WachtRij();
     public static WachtRij compleetWachtRij = new WachtRij();
 
@@ -18,8 +17,6 @@ public class Bestelling {
         this.compleet = false;
         this.dadelijk = false;
         this.bestellingID = wachtRij.size();
-
-        // Enque this Bestelling
         System.out.println("Enqueue this Bestelling: " + this);
         wachtRij.enqueue(this);
     }
@@ -29,7 +26,6 @@ public class Bestelling {
             Bestelling bestelling = (Bestelling) wachtRij.peek();
             verwerk(bestelling);
         }
-
         finish();
     }
 
@@ -44,17 +40,12 @@ public class Bestelling {
             bestelling.startTijd = new Date();
             bestelling.duur = new Time(1000);
         }
-
         Date now = new Date();
-
         long bestellingTijd = bestelling.startTijd.getTime() + bestelling.duur.getTime();
         Date eindDate = new Date (bestellingTijd);
-
         if (now.compareTo(eindDate) < 0) {
             bestelling.compleet = true;
             compleetWachtRij.enqueue(bestelling);
-
-            // Deque one from wachtRij, always first so no argument. Deque also updates the List
             System.out.println("Size before deque: " + wachtRij.size());
             wachtRij.dequeue();
             System.out.println("Size after deque: " + wachtRij.size());

@@ -16,4 +16,17 @@ public class InsertionSort {
             inputArray[i + 1] = key;
         }
     }
+
+    public static void insertionSortAdvanced(Klant[] inputArray) {
+        Klant key = inputArray[inputArray.length-1];
+        int i = inputArray.length-2;
+        while (i >= 0) {
+            if (key.achternaam.compareTo(inputArray[i].achternaam) > 0) {
+                break;
+            }
+            inputArray[i + 1] = inputArray[i];
+            i--;
+        }
+        inputArray[i + 1] = key;
+    }
 }
