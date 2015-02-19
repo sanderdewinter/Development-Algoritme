@@ -60,9 +60,12 @@ public class Main {
             new Klant(Klant.klanten.get(i));
         }
 
-        Klant klant = Klant.klantenTree.findNode(3);
-        System.out.println(klant.achternaam);
-
+        Klant klant = Klant.klantenTree.searchKlant(3);
+        if (klant == null) {
+            System.out.println("Klant niet gevonden");
+        } else {
+            System.out.println("Found: " + klant.voornaam + " " + klant.achternaam + klant.getKlantId());
+        }
 
         // Deleteing klant from tree with ID 3
         System.out.println(" ");
@@ -75,7 +78,7 @@ public class Main {
         System.out.println(Klant.klantenTree.getRoot().rightChild.rightChild.rightChild.rightChild.getKlantId());
 
         // Deleting node here
-        Klant.klantenTree.removeKlant(Klant.klantenTree.findNode(3));
+        Klant.klantenTree.removeKlant(Klant.klantenTree.searchKlant(3));
 
         System.out.println("Result after deleting one node");
         System.out.println(Klant.klantenTree.getRoot().getKlantId());
@@ -84,7 +87,7 @@ public class Main {
         System.out.println(Klant.klantenTree.getRoot().rightChild.rightChild.rightChild.getKlantId());
 
         // Use the comparator
-        System.out.println(Klant.klantenTree.compare(4, Klant.klantenTree.findNode(1)));
-        System.out.println(Klant.klantenTree.compare(3, Klant.klantenTree.findNode(5)));
+        System.out.println(Klant.klantenTree.compare(4, Klant.klantenTree.searchKlant(1)));
+        System.out.println(Klant.klantenTree.compare(3, Klant.klantenTree.searchKlant(5)));
     }
 }

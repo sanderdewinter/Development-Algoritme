@@ -39,7 +39,7 @@ public class Klant {
     }
 
     public Klant(Klant klant) {
-        this.klantID = klantenTree.maxId() + 1;
+        this.klantID = klant.getKlantId();
         this.achternaam = klant.achternaam;
         this.tussenvoegsel = klant.tussenvoegsel;
         this.voornaam = klant.voornaam;
@@ -49,7 +49,7 @@ public class Klant {
         this.emailAdres = klant.emailAdres;
 
         // Add to binary tree
-        klantenTree.addNode(this.klantID, this);
+        klantenTree.addKlant(this.klantID, this);
     }
 
     public void bestel(int klantID){

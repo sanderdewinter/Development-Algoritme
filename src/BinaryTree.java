@@ -2,38 +2,72 @@ public class BinaryTree {
 
     Klant root;
 
-    public void addNode(int key, Klant klant) {
-        if (root == null) {
+    public void addKlant(int KlantID, Klant klant) {
+        if (root == null){
             root = klant;
         } else {
-            Klant focusNode = root;
-            Klant parent;
-
-            while (true) {
-                parent = focusNode;
-
-                if (key < focusNode.getKlantId()) {
-                    focusNode = focusNode.leftChild;
-
-                    if (focusNode == null) {
-                        parent.leftChild = klant;
-                        return;
-                    }
-                } else {
-                    focusNode = focusNode.rightChild;
-
-                    if (focusNode == null) {
-                        parent.rightChild = klant;
-                        return;
-                    }
-                }
+            Klant LaatsteNode = findLast(KlantID, root);
+            if (KlantID < LaatsteNode.getKlantId()){
+                LaatsteNode.leftChild = klant;
+            } else {
+                LaatsteNode.rightChild = klant;
             }
         }
     }
 
+    public Klant findLast(int KlantId, Klant klant) {
+        if (KlantId == klant.getKlantId()) {
+            return klant;
+        } else {
+            if (KlantId < klant.getKlantId()) {
+                if(klant.leftChild != null){
+                    klant = findLast(KlantId, klant.leftChild);
+                } else {
+                    return klant;
+                }
+            }
+
+            if (KlantId > klant.getKlantId()) {
+                if (klant.rightChild != null) {
+                    klant = findLast(KlantId, klant.rightChild);
+                } else {
+                    return klant;
+                }
+            }
+        }
+        return klant;
+    }
+
+    public Klant searchKlant(int klantID) {
+        Klant selectedKlant = root;
+        Klant result;
+
+        if (selectedKlant.getKlantId() == klantID) {
+            return selectedKlant;
+        } else if (klantID < selectedKlant.getKlantId()) {
+            result = searchKlant(klantID, selectedKlant.leftChild);
+        } else {
+            result = searchKlant(klantID, selectedKlant.rightChild);
+        }
+
+        return result;
+    }
+
+    public Klant searchKlant(int klantID, Klant selectedKlant) {
+        if (selectedKlant.getKlantId() == klantID) {
+            return selectedKlant;
+        } else if (klantID < selectedKlant.getKlantId()) {
+            searchKlant(klantID, selectedKlant.leftChild);
+        } else {
+            searchKlant(klantID, selectedKlant.rightChild);
+        }
+
+        return null;
+    }
+
     public void removeKlant(Klant klant) {
 
-        Klant foundKlant = findNode(klant.getKlantId());
+        Klant foundKlant = searchKlant(klant.getKlantId());
         Klant parent = findParent(klant);
 
         Klant replaceKlant;
@@ -106,44 +140,6 @@ public class BinaryTree {
             }
         }
         return currentKlant;
-    }
-
-    public boolean compare(int key, Klant currentKlant) {
-        if (key < currentKlant.getKlantId()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    public void inOrderTraverseTree(Klant currentKlant) {
-
-        if (currentKlant != null) {
-            // Traverse the left node
-            inOrderTraverseTree(currentKlant.leftChild);
-
-            // Visit the currently focused on node
-            System.out.println(currentKlant);
-
-            // Traverse the right node
-            inOrderTraverseTree(currentKlant.rightChild);
-        }
-    }
-
-    public Klant findNode(int key) {
-        Klant focusNode = root;
-        while (focusNode.getKlantId() != key) {
-            if (key < focusNode.getKlantId()) {
-                focusNode = focusNode.leftChild;
-            } else {
-                focusNode = focusNode.rightChild;
-            }
-
-            if (focusNode == null) {
-                return null;
-            }
-        }
-        return focusNode;
     }
 
     public Klant getRoot() {
